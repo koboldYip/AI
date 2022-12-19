@@ -43,11 +43,9 @@ def process_pack(terminals, functions):
                                                               [k.equipment for k in terminals_list[j].functions if
                                                                isinstance(k, Function)].count(
                                                                   functions_list[i].equipment))
-        para = sorted(calculations.items(), key=lambda group: (group[1], group[0]))[0]
+        para = sorted(calculations.items(), key=lambda group: (int(group[1]), int(group[0])))[0]
         calculations.clear()
         now_function = functions_list.pop(int(para[0].split("_")[1]))
-        print(int(para[0].split("_")[1]))
-        print(int(para[0].split("_")[0]))
         now_terminal = terminals_list[int(para[0].split("_")[0])]
         now_terminal.functions.append(now_function)
         now_terminal.functions_capacity.append(now_function.capacity)
