@@ -38,7 +38,7 @@ def process_pack(terminals, functions):
                         terminals_list[j].capacity and len(terminals_list[j].functions_streams) + len(
                     functions_list[i].streams - terminals_list[j].functions_streams) <= \
                         terminals_list[j].streams:
-                    calculations[str(j) + "_" + str(i)] = functions_list[i].capacity + len(
+                    calculations[str(j) + "_" + str(i)] = functions_list[i].capacity + 5 * len(
                         functions_list[i].streams - terminals_list[j].functions_streams) + 100 * (
                                                               [k.equipment for k in terminals_list[j].functions if
                                                                isinstance(k, Function)].count(
@@ -46,6 +46,8 @@ def process_pack(terminals, functions):
         para = sorted(calculations.items(), key=lambda group: (group[1], group[0]))[0]
         calculations.clear()
         now_function = functions_list.pop(int(para[0].split("_")[1]))
+        print(int(para[0].split("_")[1]))
+        print(int(para[0].split("_")[0]))
         now_terminal = terminals_list[int(para[0].split("_")[0])]
         now_terminal.functions.append(now_function)
         now_terminal.functions_capacity.append(now_function.capacity)
