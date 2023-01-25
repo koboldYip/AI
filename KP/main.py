@@ -301,13 +301,18 @@ listFunctions.append(KSZAT4K)
 
 process_pack(listTerminals, listFunctions)
 
-# process(listTerminals, listFunctions)
-
 for j in listTerminals:
-    print(j)
-    print([i.equipment + " " + i.appointment for i in j.functions if isinstance(i, Function)])
+    print([i.equipment + " " + i.appointment for i in j.functions])
     print(sum(j.functions_capacity))
     print(len(j.functions_streams))
 
-print(sum([len(k.functions) for k in listTerminals if isinstance(k, Terminal)]))
+print(len(listTerminals))
+o = 0
+for i in listTerminals:
+    if sum(i.functions_capacity) > 0:
+        o = o + 1
+print(o)
+print(sum([len(k.functions) for k in listTerminals]))
 print(len(listFunctions))
+print(sum([k.capacity for k in listFunctions]))
+print(sum([sum(m.functions_capacity) for m in listTerminals]))

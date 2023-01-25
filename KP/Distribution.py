@@ -2,31 +2,6 @@ from KP.Function import Function
 from KP.Terminal import Terminal
 
 
-def process(terminals, functions):
-    functions_list = [i for i in functions if isinstance(i, Function)]
-    terminals_list = [i for i in terminals if isinstance(i, Terminal)]
-    for i in range(len(functions_list)):
-        now_function = functions_list.pop(0)
-        for j in range(len(terminals_list)):
-            if (sum(terminals_list[j].functions_capacity) + now_function.capacity <= terminals_list[
-                j].capacity) and now_function.equipment not in [i.equipment for i in terminals_list[j].functions if
-                                                                isinstance(i, Function)]:
-                if len(now_function.streams - terminals_list[j].functions_streams) > 0:
-                    if len(terminals_list[j].functions_streams) + \
-                            len(now_function.streams - terminals_list[j].functions_streams) < terminals_list[j].streams:
-                        terminals_list[j].functions.append(now_function)
-                        terminals_list[j].functions_capacity.append(now_function.capacity)
-                        terminals_list[j].functions_streams.update(
-                            now_function.streams - terminals_list[j].functions_streams)
-                        break
-                    else:
-                        continue
-                else:
-                    terminals_list[j].functions.append(now_function)
-                    terminals_list[j].functions_capacity.append(now_function.capacity)
-                    break
-
-
 def process_pack(terminals, functions):
     functions_list = [i for i in functions if isinstance(i, Function)]
     terminals_list = [i for i in terminals if isinstance(i, Terminal)]
